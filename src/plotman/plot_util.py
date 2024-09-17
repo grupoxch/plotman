@@ -51,11 +51,12 @@ def split_path_prefix(items: typing.List[str]) -> typing.Tuple[str, typing.List[
         remainders = [ os.path.relpath(i, prefix) for i in items ]
         return (prefix, remainders)
 
-def list_k_plots(d: str) -> typing.List[str]:
+def list_plots(d: str) -> typing.List[str]:
     'List completed plots in a directory (not recursive)'
     plots = []
     for plot in os.listdir(d):
-        if matches := re.search(r"^plot-k(\d*)-.*plot$", plot):
+        matches = re.search(r"^plot-k(\d*)-.*plot$", plot)
+        if matches is not None:
             grps = matches.groups()
             plot_k = int(grps[0])
             plot = os.path.join(d, plot)
